@@ -1,4 +1,7 @@
 ﻿using OpenQA.Selenium;
+using NUnit.Framework;
+using OpenQA.Selenium.Support.UI;
+
 
 namespace TenyIC2023.Pages
 {
@@ -6,6 +9,7 @@ namespace TenyIC2023.Pages
     {
         public void CreateTM(IWebDriver driver)
         {
+
             // click on create new button
             IWebElement createNewButton = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
             createNewButton.Click();
@@ -13,48 +17,51 @@ namespace TenyIC2023.Pages
             // select Time option from dropdown
             IWebElement dropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
             dropdown.Click();
+
             Thread.Sleep(2000);
 
             IWebElement timeOption = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[2]"));
             timeOption.Click();
 
-            // Type code into code textbox
+            // type code into code textbox
             IWebElement codeTextbox = driver.FindElement(By.Id("Code"));
             codeTextbox.SendKeys("TenyIC2023");
 
-            // Type description into description textbox
-            IWebElement descriptionTextbox = driver.FindElement(By.Id("Description"));
-            descriptionTextbox.SendKeys("TenyIC2023");
+            // type description into description textbox
+            driver.FindElement(By.Id("Description")).SendKeys("TenyIC2023");
 
-            // Type price into price per unit textbox
+            // type price into price per unit textbox
             IWebElement priceOverlap = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
             priceOverlap.Click();
 
             IWebElement priceTextbox = driver.FindElement(By.Id("Price"));
-            priceTextbox.SendKeys("300");
+            priceTextbox.SendKeys("120");
 
             // click on save button
             IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
             saveButton.Click();
             Thread.Sleep(3000);
 
-            // check if new Time record has been created successful
+            // check if new Time record has been created successfully
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
 
             IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement newDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            IWebElement newPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
 
-            if (newCode.Text == "TenyIC2023")
-            {
-                Console.WriteLine("New record has been created successfully.");
-            }
-            else
-            {
-                Console.WriteLine("User hasn't been logged in.");
-            }
+            Assert.That(newCode.Text == "TenyIC2023", "Actual code and expected code do not match.");
+            Assert.That(newDescription.Text == "TenyIC2023", "Actual description and expected description do not match.");
+            Assert.That(newPrice.Text == "$120.00", "Actual price and expected price do not match.");
 
-
-
+            //if (newCode.Text == "TenyIC2023")
+            //{
+            //    Assert.Pass("New record has been created successfully.");
+            //}
+            //else
+            //{
+            //    Assert.Fail("Record hasn't been created.");
+            //}
         }
         public void EditTM(IWebDriver driver)
         {
@@ -125,8 +132,9 @@ namespace TenyIC2023.Pages
         {
             // Delete record
 
-//click on delete button
-IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+            //click on delete button
+            Thread.Sleep(2000);
+            IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
             deleteButton.Click();
 
 

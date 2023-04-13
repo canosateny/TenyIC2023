@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using TenyIC2023.Utilities;
+using OpenQA.Selenium;
 
 
 namespace TenyIC2023.Pages
@@ -11,7 +12,7 @@ namespace TenyIC2023.Pages
 
             // launch turn up portal
             driver.Navigate().GoToUrl("http://horse.industryconnect.io/Account/Login?ReturnUrl=%2f");
-            Thread.Sleep(1000);
+            Wait.WaitToBeVisible(driver, "Id", "UserName", 10);
 
 
 
