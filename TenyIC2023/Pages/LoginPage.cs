@@ -1,5 +1,6 @@
 ﻿using TenyIC2023.Utilities;
 using OpenQA.Selenium;
+using NUnit.Framework;
 
 
 namespace TenyIC2023.Pages
@@ -16,19 +17,26 @@ namespace TenyIC2023.Pages
 
 
 
-            // identify username textbox and enter valid username
-            IWebElement usernameTexttbox = driver.FindElement(By.Id("UserName"));
-            usernameTexttbox.SendKeys("hari");
+            try
+            {
+                // identify username textbox and enter valid username
+                IWebElement usernameTextbox = driver.FindElement(By.Id("UserName"));
+                usernameTextbox.SendKeys("hari");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("TurnUp portal login page hasn't loaded successfully", ex.Message);
+            }
 
-
-            // identify password textbox and enter valid password
+            // indentify password textbox and enter valid password
             IWebElement passwordTextbox = driver.FindElement(By.Id("Password"));
             passwordTextbox.SendKeys("123123");
 
-            // identify login button and click on it
+            // indentify login button and click on it
             IWebElement loginButton = driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/form/div[3]/input[1]"));
             loginButton.Click();
             Thread.Sleep(2000);
+
         }
     }
 }

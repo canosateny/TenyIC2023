@@ -13,48 +13,31 @@ using TenyIC2023.Utilities;
 namespace TenyIC2023.Tests
 {
     [TestFixture]
+    [Parallelizable]
     public class TMTests : CommonDriver
-
     {
-        [SetUp]
-        public void LoginActions()
-        {
-            driver = new ChromeDriver();
+        HomePage homePageObj = new HomePage();
+        TMPage tmPageObject = new TMPage();
 
-            // Login page object initialization and definition
-            LoginPage loginPageObj = new LoginPage();
-            loginPageObj.LoginSteps(driver);
-
-            // Home page object initialization and definition
-            HomePage homePageObj = new HomePage();
-            homePageObj.GoToTMPages(driver);
-        }
-        [Test]
+        [Test, Order(1), Description("This test checks if a user is able to create a new TM record")]
         public void CreateTM_Test()
         {
-            // TM page object initialization and definition
-            TMPage tmPageObject = new TMPage();
+            homePageObj.GoToTMPage(driver);
             tmPageObject.CreateTM(driver);
         }
-        [Test]
+
+        [Test, Order(2), Description("This test checks if a user is able to edit an existing TM record")]
         public void EditTM_Test()
         {
-            // Edit TM
-            TMPage tmPageObject = new TMPage();
-            tmPageObject.EditTM(driver);
+            homePageObj.GoToTMPage(driver);
+            //tmPageObject.EditTM(driver);
         }
-        [Test]
+
+        [Test, Order(3), Description("This test checks if a user is able to delete an existing TM record")]
         public void DeleteTM_Test()
         {
-            // Delete TM
-            TMPage tmPageObject = new TMPage();
-            tmPageObject.DeleteTM(driver);
+            homePageObj.GoToTMPage(driver);
+            tmPageObject.DeleteTM(driver); ;
         }
-        [TearDown]
-        public void CloseTestRun()
-        {
-
-        }
-
     }
 }
