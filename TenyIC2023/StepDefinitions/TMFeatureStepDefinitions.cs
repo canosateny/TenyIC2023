@@ -50,20 +50,27 @@ namespace TenyIC2023.StepDefinitions
             Assert.That(newPrice == "$12.00", "Actual price and expected price do not match.");
         }
 
-        [When(@"I update '([^']*)' on an existing time and material record")]
-        public void WhenIUpdateOnAnExistingTimeAndMaterialRecord(string description)
+        [When(@"I update '([^']*)', '([^']*)','([^']*)' on an existing time and material record")]
+        public void WhenIUpdateOnAnExistingTimeAndMaterialRecord(string Description, string code, string price)
         {
-            tmPageObject.EditTM(driver, description);
+            tmPageObject.EditTM(driver, Description, code, price);
+
         }
 
-        [Then(@"the record should have the updated '([^']*)'")]
-        public void ThenTheRecordShouldHaveTheUpdated(string description)
+
+
+       
+        [Then(@"the record should have the updated '([^']*)','([^']*)' and '([^']*)'")]
+        public void ThenTheRecordShouldHaveTheUpdatedAnd(string Description, string code, string price)
         {
-            string editedDescription = tmPageObject.GetEditedDescription(driver);
+            string editedDescription = tmPageObject.GetDescription(driver);
+            string editedCode = tmPageObject.GetCode(driver);
+            string editedPrice = tmPageObject.GetPrice(driver);
 
-            Assert.That(editedDescription == description, "Actual description and expected description do not match.");
+            Assert.That(editedDescription == Description, "Actual Description and expected Description do not match.");
+            Assert.That(editedCode == code, "Actual code and expected code do not match.");
+            Assert.That(editedPrice == price, "Actual price and expected price do not match.");
         }
-
 
     }
 }

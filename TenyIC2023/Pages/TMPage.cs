@@ -72,7 +72,7 @@ namespace TenyIC2023.Pages
             IWebElement actualPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
             return actualPrice.Text;
         }
-        public void EditTM(IWebDriver driver , string description)
+        public void EditTM(IWebDriver driver , string Description, string Code, string Price)
         {
             Thread.Sleep(4000);
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
@@ -106,12 +106,12 @@ namespace TenyIC2023.Pages
             //edit code into code textbox
             IWebElement editcodeTextbox = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
             editcodeTextbox.Clear();
-            editcodeTextbox.SendKeys("TenyIC23Edit");
+            editcodeTextbox.SendKeys(Code);
 
             //edit description into description box
             IWebElement editdescriptionTextbox = driver.FindElement(By.XPath("//*[@id=\"Description\"]"));
             editdescriptionTextbox.Clear();
-            editdescriptionTextbox.SendKeys(description);
+            editdescriptionTextbox.SendKeys(Description);
 
 
 
@@ -122,7 +122,7 @@ namespace TenyIC2023.Pages
             editpriceOverlap.Click();
             editpriceTextbox.Clear();
             editpriceOverlap.Click();
-            editpriceTextbox.SendKeys("200");
+            editpriceTextbox.SendKeys(Price);
 
             //click on save button
             IWebElement savebuttonEdit = driver.FindElement(By.Id("SaveButton"));
@@ -143,6 +143,17 @@ namespace TenyIC2023.Pages
         {
             IWebElement editedDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
             return editedDescription.Text;
+        }
+        public string GetEditedCode(IWebDriver driver)
+        {
+            IWebElement editedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            return editedCode.Text;
+        }
+
+        public string GetEditedPrice(IWebDriver driver)
+        {
+            IWebElement editedPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+            return editedPrice.Text;
         }
 
 
